@@ -26,7 +26,7 @@ suggestion - should be a string, lowercase and required
 likes - should be a number and default to 0
 anonymous - should be a boolean
 timeCreated - should be a date
-
+`
 Routes:
 GET /all-suggestions
 GET /byname-suggestion
