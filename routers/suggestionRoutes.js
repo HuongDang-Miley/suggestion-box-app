@@ -20,6 +20,9 @@ router.get('/single-suggestion/:id', getSingleSuggestion)
 // create new suggestion
 router.post('/create-suggestion', createSuggestion)
 
+// Get the view of create suggestion
+router.get('/create-suggestion', (req,res) => res.render('create-suggestion'))
+
 // delete suggestion
 router.delete('/delete-suggestion/:id', deleteSuggestion) 
 

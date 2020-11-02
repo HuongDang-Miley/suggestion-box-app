@@ -1,16 +1,12 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 const morgan = require('morgan')
 require('dotenv').config()
 const mongoose = require('mongoose')
-const suggestionRoutes = require ('./routers/suggestionRoutes.js')
+const suggestionRoutes = require('./routers/suggestionRoutes.js')
 const port = process.env.PORT
 app.use(morgan('dev'))
-
-
-// for post
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
 
 mongoose
     .connect(process.env.MONGODB_URI, {
@@ -22,6 +18,13 @@ mongoose
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(`MongoDB Error: ${err}`))
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// for post
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/v1/suggestions', suggestionRoutes)
 

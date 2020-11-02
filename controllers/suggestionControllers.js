@@ -1,12 +1,17 @@
 const SuggestionsSchema = require('../models/SuggestionSchema.js')
+const suggestionSeed = require('../suggestions.json')
 
 module.exports = {
     // get all suggestion
     getAllSuggestions: (req, res) => {
+        // SuggestionsSchema
+        //     .find()
+        //     .then((suggestions) => res.status(200).json({ confirmation: 'success', suggestions }))
+        //     .catch(err => res.status(500).json({ message: 'fail', err }))
         SuggestionsSchema
             .find()
-            .then((suggestions) => res.status(200).json({ confirmation: 'success', suggestions }))
-            .catch(err => res.status(500).json({ message: 'fail', err }))
+            .then((foundSuggestion) => res.status(200).render('all-suggestions', { suggestionList: foundSuggestion }))
+            .catch(err => res.status(400).send(`error from getAllSuggestions ${err}`))
     },
 
     // get a list of users that have this name:
@@ -50,7 +55,9 @@ module.exports = {
 
         newSuggestion
             .save()
-            .then(newSuggestion => res.status(200).json({ confirmation: "suggestion saved", newSuggestion }))
+            
+            // .then(newSuggestion => res.status(200).json({ confirmation: "suggestion saved", newSuggestion }))
+            .then(() => res.status(200).redirect('all-suggestions'))
             .catch(err => res.status(500).json({ confirmation: 'fail', err }))
     },
 
@@ -58,7 +65,7 @@ module.exports = {
     deleteSuggestion: (req, res) => {
         SuggestionsSchema
             .findByIdAndDelete(req.params.id)
-            .then((user) => res.status(200).json({ confirmation: 'deteled this user', user }))
+            .then((user) => res.status(200).json({ confirmation: 'deleted this user', user }))
             .catch((user) => res.status(400).send('user not found'))
     }
 }

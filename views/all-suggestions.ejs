@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Project For Code Immersives</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <% suggestionList.forEach(element => { %>
+    <div style="background-color: whitesmoke; margin-top: 5px; padding: 10px">
+        <h2>Title: <%= element.title.toUpperCase() %> </h2>
+        <h5>Name: <%= element.name %> </h5>
+        <h3><%= element.suggestion %> </h3>
+        <span>like: <%= element.likes %> </span></br>
+        <span>Anonymous: <%= element.anonymous %> </span></br>
+        <span><%= element.timeCreated %> </span></br>
+    </div>
+    <% }) %>
+    <button style="background-color: darkslateblue; color: white; margin-top:10px ;width: 200px; height: 48px">
+        <a style="text-decoration: none; color: white" href='create-suggestion'>Add A Suggestion</a></button>
+</body>
+
+</html>
