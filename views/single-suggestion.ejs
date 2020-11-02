@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Project For Code Immersives</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div style="background-color: whitesmoke; padding: 10px">
+        <h1><%= suggestion.title %> </h1>
+        <h4><%= suggestion.name %> </h4>
+        <p><%= suggestion.suggestion %> </p>
+        <span><%= suggestion.like %> like </span>
+        <span><%= suggestion.anonymous %> </span>
+        <span><%= suggestion.timeCreated %> </span>
+    </div>
+
+    <div style="background-color:whitesmoke; padding: 10px; margin-top: 10px">
+        <form action='/api/v1/comments/add-comment/<%=suggestion.id%>' method="POST">
+            <label for="comment">Add Comment</label></br>
+            <textarea name="comment" id="comment" cols="30" rows="5"></textarea></br>
+            <button style="margin-top: 10px; background-color: darkorange" type="submit">Submit Comment</button>
+        </form>
+    </div>
+
+    <% if (foundComments.length) {
+        foundComments.forEach(element => { %>
+    <div style="background-color:whitesmoke; padding: 10px; margin-top: 10px">
+        <%= element.comment %>
+        <%= element.date %>
+    </div>
+    <% })} %>
+</body>
+
+</html>

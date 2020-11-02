@@ -6,7 +6,7 @@ const {
     getSuggestionByName,
     getSingleSuggestion, 
     createSuggestion,
-    deleteSuggestion} = require('../controllers/suggestionControllers.js')
+    deleteSuggestion} = require('./comment/controllers/suggestionControllers.js.js')
 
 // get all suggestion
 router.get('/all-suggestions', getAllSuggestions)

@@ -1,5 +1,5 @@
-const SuggestionsSchema = require('../models/SuggestionSchema.js')
-const suggestionSeed = require('../suggestions.json')
+const CommentSchema = require('../comments/models/CommentSchema')
+const SuggestionsSchema = require('./models/SuggestionSchema')
 
 module.exports = {
     // get all suggestion
@@ -18,9 +18,9 @@ module.exports = {
     getSuggestionByName: (req, res) => {
         SuggestionsSchema
             .find({ name: req.params.name })
-            .then((foundUsers) => {
-                if (foundUser) {
-                    return res.status(200).json({ confirmation: 'success', foundUsers })
+            .then((foundSuggestions) => {
+                if (foundSuggestion) {
+                    return res.status(200).json({ confirmation: 'success', foundSuggestions })
                 }
                 return res.status(400).json({ confirmation: 'fail', message: 'no user found' })
             })
@@ -31,10 +31,23 @@ module.exports = {
     getSingleSuggestion: (req, res) => {
         SuggestionsSchema
             .findById(req.params.id)
-            .then((foundUser) => {
-                return res.status(200).json({ confirmation: 'success', foundUser })
+            .then((dbSuggestion) => {
+                console.log('hello1')
+                if (dbSuggestion) {
+                    console.log('hello2')
+                    CommentSchema
+                        .find({ owner: dbSuggestion.id })
+                        .then((dbComments) => {
+                            return res.render('single-suggestion', {
+                                suggestion: dbSuggestion,
+                                foundComments: dbComments
+                            })
+                        })
+                } else {
+                    return res.status(400).send('No Suggestion Found')
+                }
             })
-            .catch(err => res.status(400).send('no user found'))
+            .catch(err => res.status(500).json({confirmation: 'fail', message: 'Sever Error', err}))
     },
 
     // create new suggestion
@@ -55,7 +68,7 @@ module.exports = {
 
         newSuggestion
             .save()
-            
+
             // .then(newSuggestion => res.status(200).json({ confirmation: "suggestion saved", newSuggestion }))
             .then(() => res.status(200).redirect('all-suggestions'))
             .catch(err => res.status(500).json({ confirmation: 'fail', err }))

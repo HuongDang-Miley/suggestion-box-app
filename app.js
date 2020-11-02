@@ -4,7 +4,8 @@ const path = require('path')
 const morgan = require('morgan')
 require('dotenv').config()
 const mongoose = require('mongoose')
-const suggestionRoutes = require('./routers/suggestionRoutes.js')
+const suggestionRoutes = require('./routes/suggestions/suggestionRoutes.js')
+const commentRoutes = require('./routes/comments/commentRoutes')
 const port = process.env.PORT
 app.use(morgan('dev'))
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/v1/suggestions', suggestionRoutes)
+app.use('/api/v1/comments', commentRoutes)
 
 app.listen(port, () => console.log(`listening on ${port}`))
 
