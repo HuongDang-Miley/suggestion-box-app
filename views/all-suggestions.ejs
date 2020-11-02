@@ -9,18 +9,30 @@
 </head>
 
 <body>
-    <% suggestionList.forEach(element => { %>
-    <div style="background-color: whitesmoke; margin-top: 5px; padding: 10px">
-        <h2>Title: <%= element.title.toUpperCase() %> </h2>
-        <h5>Name: <%= element.name %> </h5>
-        <h3><%= element.suggestion %> </h3>
-        <span>like: <%= element.likes %> </span></br>
-        <span>Anonymous: <%= element.anonymous %> </span></br>
-        <span><%= element.timeCreated %> </span></br>
+
+    <div style="margin: 0px auto; width: 600px">
+        <% suggestionList.forEach(element => { %>
+        <div style="background-color:  whitesmoke; padding-left: 20px; padding-top:10px; padding-bottom: 10px; margin-top: 10px">
+            <h2 style="width: 500px"><%= element.title.toUpperCase() %> </h2>
+            <h5>Name: <%= element.name %> </h5>
+            <h3><%= element.suggestion %> </h3>
+            <span><%= element.likes %> like </span></br>
+            <span>Anonymous: <%= element.anonymous %> </span></br>
+            <span><%= element.timeCreated %> </span></br>
+            <button
+                style="margin-top: 10px; margin-bottom: 10px; background-color: cornflowerblue; color: white; height: 24px">Add
+                Comment
+            </button>
+        </div>
+        <% }) %>
+        <button
+            style="margin: 20px auto; background-color: darkorange;width: 200px; height: 48px">
+            <a style="text-decoration: none; color: black" href='create-suggestion'>Add A Suggestion</a></button>
+
+
     </div>
-    <% }) %>
-    <button style="background-color: darkslateblue; color: white; margin-top:10px ;width: 200px; height: 48px">
-        <a style="text-decoration: none; color: white" href='create-suggestion'>Add A Suggestion</a></button>
+
+
 </body>
 
 </html>
